@@ -72,7 +72,7 @@ Then create the database using the recently created user:
 
 ```
 (financial-chat-django) $ psql postgres -U financial_chat_django
-postgres=> CREATE DATABASE financial_django;
+postgres=> CREATE DATABASE financial_chat_django;
 ```
 
 Finally grant permissions:
