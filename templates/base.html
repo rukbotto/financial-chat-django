@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}Financial Chat{% endblock %}</title>
+    <meta name="description" content="{% block description %}Financial chat powered by Django{% endblock %}">
+  </head>
+  <body>
+    <header>
+      <a href="/">Financial Chat</a>
+      {% if user.is_authenticated %}
+        <a href="/logout/">Cerrar sesión</a>
+      {% endif %}
+    </header>
+    {% block content %}{% endblock %}
+    <footer>
+      <p>Powered by Django</p>
+    </footer>
+  </body>
+</html>
