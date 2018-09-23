@@ -1,7 +1,21 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block title %}Room{% endblock %}
 
 {% block content %}
-  <h1>Room</h1>
+  <h2>{{ object.name }}</h2>
+  <div data-ref="room-messages">
+  </div>
+  <form data-ref="message-form">
+    {{ form }}
+    <input type="submit" value="Send" data-ref="message-submit">
+  </form>
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript" src="/static/js/room.js"></script>
+  <script>
+    var room = new Room("{{ object.pk }}");
+    room.bindEvents();
+  </script>
 {% endblock %}
