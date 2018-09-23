@@ -34,7 +34,6 @@ class ChatConsumer(WebsocketConsumer):
         user = User.objects.get(pk=text_data_json.get('user_id'))
 
         message = Message()
-        message.datetime = parse_datetime(text_data_json.get('datetime'))
         message.content = text_data_json.get('content')
         message.room = room
         message.user = user

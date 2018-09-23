@@ -4,7 +4,16 @@
 
 {% block content %}
   <h2>{{ object.name }}</h2>
-  <div data-ref="room-messages">
+  <div data-ref="messages">
+    {% for message in messages %}
+      <div data-ref="message-{{ message.pk }}">
+        <p>
+          By {{ message.user.username }} on
+          <time datetime="{{ message.datetime|date:"c" }}" data-ref="message-time"></time>
+          <p>{{ message.content }}</p>
+        </p>
+      </div>
+    {% endfor %}
   </div>
   <form data-ref="message-form">
     {{ form }}

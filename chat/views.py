@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, ListView
 
-from chat.models import Profile, Room
+from chat.models import Message, Profile, Room
 from chat.forms import MessageForm
 
 
@@ -17,6 +17,12 @@ class RoomDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = MessageForm()
+
+        messages = Message.objects.filter(
+            room=context['object']
+        ).order_by('-datetime')[:50]
+        context['messages'] = messages[::-1]
+
         return context
 
 

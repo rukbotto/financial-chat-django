@@ -2,7 +2,8 @@
 
 function Room (roomId, userId, username) {
   this.refs = {
-    messageContainer: '[data-ref="room-messages"]',
+    messageContainer: '[data-ref="messages"]',
+    messageTime: '[data-ref="message-time"]',
     messageForm: '[data-ref="message-form"]',
     messageInput: '[data-ref="message-input"]',
     messageSubmit: '[data-ref="message-submit"]'
@@ -17,10 +18,8 @@ function Room (roomId, userId, username) {
 };
 
 Room.prototype.parseISODatetime = function (datetime) {
-  console.log(datetime);
   var regexp = /([\d]{4})-([\d]{2})-([\d]{2})T([\d]{2}):([\d]{2}):([\d]{2})\.([\d]{6})\+[\d]{2}:[\d]{2}/g;
   var match = regexp.exec(datetime);
-  console.log(match[5]);
   return new Date(
     Date.UTC(
       parseInt(match[1]),
@@ -77,13 +76,22 @@ Room.prototype.onSubmit = function (event) {
     var messageInputDOM = document.querySelector(this.refs.messageInput);
     this.socket.send(
       JSON.stringify({
-        'datetime': new Date().toISOString(),
         'content': messageInputDOM.value,
         'room_id': this.roomId,
         'user_id': this.userId
       })
     );
     messageInputDOM.value = '';
+  }
+};
+
+Room.prototype.onInit = function (event) {
+  var messageContainerDOM = event.target;
+  var messageTimeListDOM = messageContainerDOM.querySelectorAll(this.refs.messageTime);
+  for (var i = 0; i < messageTimeListDOM.length; i++) {
+    var datetime = messageTimeListDOM[i].getAttribute('datetime');
+    var date = this.parseISODatetime(datetime);
+    messageTimeListDOM[i].textContent = date.toString();
   }
 };
 
@@ -96,4 +104,9 @@ Room.prototype.bindEvents = function () {
 
   this.onSubmit = this.onSubmit.bind(this);
   document.addEventListener('submit', this.onSubmit);
+
+  this.onInit = this.onInit.bind(this);
+  var messageContainerDOM = document.querySelector(this.refs.messageContainer);
+  messageContainerDOM.addEventListener('init', this.onInit);
+  messageContainerDOM.dispatchEvent(new Event('init'));
 };
