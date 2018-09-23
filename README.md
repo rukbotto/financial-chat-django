@@ -123,7 +123,27 @@ Python 3.7.0 (default, Jun 29 2018, 20:13:13)
 
 Copy the generated secret key and paste it into the `SECRET_KEY` setting in the local configuration file.
 
+## Redis installation
+
+Although *Redis* can be installed directly, we are installing it by using the official *Docker* image.
+
+For installing *Docker* in *MacOS*, you can download the installer from [*Docker Store*](https://store.docker.com/editions/community/docker-ce-desktop-mac).
+
+For *Debian*, you need to add the *Docker APT* repository and install *Docker* using the package manager. Detailed instructions can be found [here](https://docs.docker.com/install/linux/docker-ce/debian/).
+
+After installing *Docker*, pull the latest `redis` image form *Docker Store*:
+
+```
+$ docker pull redis
+```
+
 ## Usage
+
+Run the *Redis* container:
+
+```
+$ docker run -p 6380:6379 -d redis
+```
 
 Run database migrations:
 
@@ -134,5 +154,5 @@ Run database migrations:
 Run the local development server:
 
 ```
-(financial-chat-django) $ python manage.py runserver
+(financial-chat-django) $ python manage.py runserver 0.0.0.0:8000
 ```
