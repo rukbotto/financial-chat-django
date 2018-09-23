@@ -8,6 +8,9 @@ class Room(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField()
 
+    def __str__(self):
+        return u'{}'.format(self.name)
+
 
 class Message(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
