@@ -6,9 +6,9 @@
   </head>
   <body>
     <header>
-      <a href="/">Financial Chat</a>
+      <p><a href="/">Financial Chat</a></p>
       {% if user.is_authenticated %}
-        <a href="/logout/">Cerrar sesión</a>
+        <p><a href="/logout/">Log out</a></p>
       {% endif %}
     </header>
     {% block content %}{% endblock %}
