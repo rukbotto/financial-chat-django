@@ -20,9 +20,6 @@ class RoomDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-# TODO: Post message (AJAX/WebSockets)
-
-
 class ProfileDetailView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'profile_detail.html'

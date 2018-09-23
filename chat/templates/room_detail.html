@@ -15,7 +15,7 @@
 {% block js %}
   <script type="text/javascript" src="/static/js/room.js"></script>
   <script>
-    var room = new Room("{{ object.pk }}");
+    var room = new Room('{{ object.pk }}', '{{ user.pk }}', '{{ user.username }}');
     room.bindEvents();
   </script>
 {% endblock %}

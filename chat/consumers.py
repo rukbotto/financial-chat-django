@@ -1,6 +1,12 @@
+import datetime
+import json
+
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
-import json
+from django.contrib.auth.models import User
+from django.utils.dateparse import parse_datetime
+
+from chat.models import Message, Room
 
 
 class ChatConsumer(WebsocketConsumer):
@@ -23,18 +29,40 @@ class ChatConsumer(WebsocketConsumer):
 
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        content = text_data_json['content']
+
+        room = Room.objects.get(pk=text_data_json.get('room_id'))
+        user = User.objects.get(pk=text_data_json.get('user_id'))
+
+        message = Message()
+        message.datetime = parse_datetime(text_data_json.get('datetime'))
+        message.content = text_data_json.get('content')
+        message.room = room
+        message.user = user
+        message.save()
 
         async_to_sync(self.channel_layer.group_send)(
             self.group_name,
             {
-                'type': 'send_content',
-                'content': content
+                'type': 'send_message',
+                'pk': message.pk,
+                'datetime': message.datetime.isoformat(),
+                'content': message.content,
+                'room_pk': message.room.pk,
+                'user_pk': message.user.pk,
+                'user_name': message.user.username,
             }
         )
 
-    def send_content(self, event):
-        content = event['content']
+    def send_message(self, event):
         self.send(
-            text_data=json.dumps({ 'content': content })
+            text_data=json.dumps(
+                {
+                    'id': event.get('pk'),
+                    'datetime': event.get('datetime'),
+                    'content': event.get('content'),
+                    'room_id': event.get('room_pk'),
+                    'user_id': event.get('user_pk'),
+                    'user_name': event.get('user_name'),
+                }
+            )
         )
