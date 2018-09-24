@@ -39,7 +39,7 @@ class ChatConsumer(WebsocketConsumer):
         match = re.match(r'/stock=([A-Z]*)', content)
 
         if match:
-            tasks.query_quote.delay(match.group(1), room_pk, user_pk)
+            tasks.query_quote.delay(match.group(1), room_pk)
         else:
             room = Room.objects.get(pk=room_pk)
             user = User.objects.get(pk=user_pk)
