@@ -169,7 +169,7 @@ Run database migrations:
 Apply database fixtures:
 
 ```
-(financial-chat-django) $ python manage.py loaddata users chat_rooms
+(financial-chat-django) $ python manage.py loaddata users profiles chat_rooms
 ```
 
 Run *Celery*:
