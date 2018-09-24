@@ -36,7 +36,7 @@ class ChatConsumer(WebsocketConsumer):
         room_pk = text_data_json.get('room_id')
         user_pk = text_data_json.get('user_id')
 
-        match = re.match(r'/stock=([A-Z]*)', content)
+        match = re.match(r'^/stock=([A-Z]*)$', content)
 
         if match:
             tasks.query_quote.delay(match.group(1), room_pk)

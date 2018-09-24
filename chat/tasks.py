@@ -40,7 +40,10 @@ def query_quote(quote, room_id):
     for row in csv_reader:
         price = row['Close']
 
-    content = '{} quote is ${} per share'.format(quote, price)
+    if price == 'N/D':
+        content = '{} quote is not trading at the moment'.format(quote)
+    else:
+        content = '{} quote is ${} per share'.format(quote, price)
 
     ws = create_connection('ws://localhost:8000/ws/room/{}/'.format(room_id))
     ws.send(
