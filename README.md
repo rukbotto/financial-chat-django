@@ -156,7 +156,7 @@ $ docker pull rabbitmq
 Run the *Redis* and *RabbitMQ* containers:
 
 ```
-$ docker run -d -p 6380:6379 --name financial_chat_redis redis
+$ docker run -d -p 6379:6379 --name financial_chat_redis redis
 $ docker run -d --p 5672:5672 -p 15672:15672 -name financial_chat_rabbit rabbitmq
 ```
 
