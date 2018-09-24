@@ -11,6 +11,7 @@ function Room (roomId, userId, profileId, username) {
 
   this.roomId = roomId;
   this.userId = userId;
+  this.profileId = profileId;
   this.username = username;
 
   var url = 'ws://' + window.location.host + '/ws/room/' + this.roomId + '/';
@@ -44,16 +45,25 @@ Room.prototype.createNewMessageDOM = function (data) {
   timeDOM.setAttribute('datetime', date.toISOString());
   timeDOM.textContent = date.toString();
 
-  var metadataDOM = document.createElement('p');
-  metadataDOM.appendChild(document.createTextNode('By '));
-  metadataDOM.appendChild(profileAnchorDOM);
-  metadataDOM.appendChild(document.createTextNode(' on '));
-  metadataDOM.appendChild(timeDOM);
+  var metadataParagraphDOM = document.createElement('p');
+  metadataParagraphDOM.appendChild(document.createTextNode('By '));
+  metadataParagraphDOM.appendChild(profileAnchorDOM);
+  metadataParagraphDOM.appendChild(document.createTextNode(' on '));
+  metadataParagraphDOM.appendChild(timeDOM);
 
-  var contentDOM = document.createElement('p');
-  contentDOM.textContent = data['content'];
+  var metadataDOM = document.createElement('div');
+  metadataDOM.className = 'message__metadata';
+  metadataDOM.appendChild(metadataParagraphDOM);
+
+  var contentParagraphDOM = document.createElement('p');
+  contentParagraphDOM.textContent = data['content'];
+
+  var contentDOM = document.createElement('div');
+  contentDOM.className = 'message__content';
+  contentDOM.appendChild(contentParagraphDOM);
 
   var newMessageDOM = document.createElement('div');
+  newMessageDOM.className = 'message';
   newMessageDOM.appendChild(metadataDOM);
   newMessageDOM.appendChild(contentDOM);
   return newMessageDOM;

@@ -3,24 +3,27 @@
 {% block title %}Room{% endblock %}
 
 {% block content %}
-  <h2>{{ object.name }}</h2>
-  <div data-ref="messages">
-    {% for message in messages %}
-      <div>
-        <p>
-          By
-          <a href="{% url 'profile_detail' message.user.profile.pk %}">{{ message.user.username }}</a>
-          on
-          <time datetime="{{ message.datetime|date:"c" }}" data-ref="message-time"></time>
-          <p>{{ message.content }}</p>
-        </p>
+  <div class="content content--room">
+    <h2 class="content__heading">{{ object.name }}</h2>
+    <div class="content__main">
+      <div class="messages" data-ref="messages">
+        {% for message in messages %}
+          <div class="message">
+            <div class="message__metadata">
+              <p>By <a href="{% url 'profile_detail' message.user.profile.pk %}">{{ message.user.username }}</a> on <time datetime="{{ message.datetime|date:"c" }}" data-ref="message-time"></time></p>
+            </div>
+            <div class="message__content">
+              <p>{{ message.content }}</p>
+            </div>
+          </div>
+        {% endfor %}
       </div>
-    {% endfor %}
+      <form class="form form--message" data-ref="message-form">
+        {{ form }}
+        <input type="submit" value="Send" data-ref="message-submit">
+      </form>
+    </div>
   </div>
-  <form data-ref="message-form">
-    {{ form }}
-    <input type="submit" value="Send" data-ref="message-submit">
-  </form>
 {% endblock %}
 
 {% block js %}

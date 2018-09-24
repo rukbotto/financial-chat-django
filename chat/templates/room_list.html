@@ -3,15 +3,19 @@
 {% block title %}Rooms{% endblock %}
 
 {% block content %}
-  <h2>Rooms</h2>
-  {% for room in object_list %}
-    <div>
-      <h3><a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a></h3>
-      <p>{{ room.description }}</p>
+  <section class="content content--rooms">
+    <h2 class="content__heading">Rooms</h2>
+    <div class="content__main">
+      {% for room in object_list %}
+        <div class="room">
+          <h3><a href="{% url 'room_detail' room.pk %}">{{ room.name }}</a></h3>
+          <p>{{ room.description }}</p>
+        </div>
+      {% empty %}
+        <div class="notice">
+          <p>Sorry, there are currently no rooms.</p>
+        </div>
+      {% endfor %}
     </div>
-  {% empty %}
-    <div>
-      <p>Sorry, there are currently no rooms.</p>
-    </div>
-  {% endfor %}
+  </section>
 {% endblock %}

@@ -5,7 +5,10 @@ from chat.models import Message
 
 class MessageForm(forms.ModelForm):
     content = forms.CharField(
-        widget=forms.Textarea(attrs={ 'data-ref': 'message-input' })
+        widget=forms.Textarea(attrs={
+            'data-ref': 'message-input',
+            'rows': 1
+        })
     )
 
     class Meta:
