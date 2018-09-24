@@ -6,7 +6,7 @@
   <h2>{{ object.name }}</h2>
   <div data-ref="messages">
     {% for message in messages %}
-      <div data-ref="message-{{ message.pk }}">
+      <div>
         <p>
           By {{ message.user.username }} on
           <time datetime="{{ message.datetime|date:"c" }}" data-ref="message-time"></time>

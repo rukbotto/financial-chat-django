@@ -48,7 +48,6 @@ Room.prototype.createNewMessageDOM = function (data) {
   contentDOM.textContent = data['content'];
 
   var newMessageDOM = document.createElement('div');
-  newMessageDOM.setAttribute('data-ref', 'message-' + data['id']);
   newMessageDOM.appendChild(metadataDOM);
   newMessageDOM.appendChild(contentDOM);
   return newMessageDOM;
