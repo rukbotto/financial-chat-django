@@ -1,6 +1,6 @@
 # Financial Chat Django
 
-A simple chat application powered by *Django*.
+A simple chat application powered by *Django*. It offers basic real-time chat messaging between users in chat rooms. As a bonus, it is possible to ask a financial chat bot for stock quote prices!
 
 ## Installation
 
@@ -123,26 +123,41 @@ Python 3.7.0 (default, Jun 29 2018, 20:13:13)
 
 Copy the generated secret key and paste it into the `SECRET_KEY` setting in the local configuration file.
 
-## Redis installation
+## Docker installation
 
-Although *Redis* can be installed directly, we are installing it by using the official *Docker* image.
+We are using *Docker* for installing and running *Redis* and *RabbitMQ* services instead of installing them directly in the development machines.
 
 For installing *Docker* in *MacOS*, you can download the installer from [*Docker Store*](https://store.docker.com/editions/community/docker-ce-desktop-mac).
 
 For *Debian*, you need to add the *Docker APT* repository and install *Docker* using the package manager. Detailed instructions can be found [here](https://docs.docker.com/install/linux/docker-ce/debian/).
 
-After installing *Docker*, pull the latest `redis` image form *Docker Store*:
+## Redis installation
+
+*Redis* is an in-memory database and message broker required by *Django Channels* for enabling real-time communication between chat users.
+
+To install *Redis*, pull the latest official image form *Docker Store*:
 
 ```
 $ docker pull redis
 ```
 
-## Usage
+## RabbitMQ installation
 
-Run the *Redis* container:
+*RabbitMQ* is a message broker required by *Celery* for queuing tasks, like the one which queries stock quote prices.
+
+To install *RabbitMQ*, pull the latest official image from *Docker Store*:
 
 ```
-$ docker run -p 6380:6379 -d redis
+$ docker pull rabbitmq
+```
+
+## Usage
+
+Run the *Redis* and *RabbitMQ* containers:
+
+```
+$ docker run -d -p 6379:6379 --name financial_chat_redis redis
+$ docker run -d --p 5672:5672 -p 15672:15672 -name financial_chat_rabbit rabbitmq
 ```
 
 Run database migrations:
@@ -151,8 +166,30 @@ Run database migrations:
 (financial-chat-django) $ python manage.py migrate
 ```
 
+Apply database fixtures:
+
+```
+(financial-chat-django) $ python manage.py loaddata users chat_rooms
+```
+
+Run *Celery*:
+
+```
+(financial-chat-django) $ celery -A financial_chat_django worker -l info
+```
+
 Run the local development server:
 
 ```
 (financial-chat-django) $ python manage.py runserver 0.0.0.0:8000
 ```
+
+Finally, open <http://localhost:8000> in your favorite browser, then login as user 'john' with password 'john' or user 'bob' with password 'bob', and finally select the 'Lorem ipsum' chat room to start chatting.
+
+If you want to ask for quotes, input the following command in the text box:
+
+```
+/stock=AAPL
+```
+
+The above example will display the *Apple* quote price as a chat message. Please note the quote names need to be uppercased for the command to work.

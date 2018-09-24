@@ -6,9 +6,11 @@
   <h2>{{ object.name }}</h2>
   <div data-ref="messages">
     {% for message in messages %}
-      <div data-ref="message-{{ message.pk }}">
+      <div>
         <p>
-          By {{ message.user.username }} on
+          By
+          <a href="{% url 'profile_detail' message.user.profile.pk %}">{{ message.user.username }}</a>
+          on
           <time datetime="{{ message.datetime|date:"c" }}" data-ref="message-time"></time>
           <p>{{ message.content }}</p>
         </p>
@@ -24,7 +26,12 @@
 {% block js %}
   <script type="text/javascript" src="/static/js/room.js"></script>
   <script>
-    var room = new Room('{{ object.pk }}', '{{ user.pk }}', '{{ user.username }}');
+    var room = new Room(
+      '{{ object.pk }}',
+      '{{ user.pk }}',
+      '{{ user.profile.pk }}',
+      '{{ user.username }}'
+    );
     room.bindEvents();
   </script>
 {% endblock %}

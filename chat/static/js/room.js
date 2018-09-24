@@ -1,6 +1,6 @@
 'use strict';
 
-function Room (roomId, userId, username) {
+function Room (roomId, userId, profileId, username) {
   this.refs = {
     messageContainer: '[data-ref="messages"]',
     messageTime: '[data-ref="message-time"]',
@@ -36,19 +36,24 @@ Room.prototype.parseISODatetime = function (datetime) {
 Room.prototype.createNewMessageDOM = function (data) {
   var date = this.parseISODatetime(data['datetime']);
 
+  var profileAnchorDOM = document.createElement('a');
+  profileAnchorDOM.href = '/chat/profile/' + this.profileId + '/';
+  profileAnchorDOM.textContent = data['user_name'];
+
   var timeDOM = document.createElement('time');
   timeDOM.setAttribute('datetime', date.toISOString());
   timeDOM.textContent = date.toString();
 
   var metadataDOM = document.createElement('p');
-  metadataDOM.textContent = 'By ' + data['user_name'] + ' on ';
+  metadataDOM.appendChild(document.createTextNode('By '));
+  metadataDOM.appendChild(profileAnchorDOM);
+  metadataDOM.appendChild(document.createTextNode(' on '));
   metadataDOM.appendChild(timeDOM);
 
   var contentDOM = document.createElement('p');
   contentDOM.textContent = data['content'];
 
   var newMessageDOM = document.createElement('div');
-  newMessageDOM.setAttribute('data-ref', 'message-' + data['id']);
   newMessageDOM.appendChild(metadataDOM);
   newMessageDOM.appendChild(contentDOM);
   return newMessageDOM;

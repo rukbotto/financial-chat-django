@@ -1,0 +1,10 @@
+[
+  {
+    "model": "chat.room",
+    "pk": 1,
+    "fields": {
+      "name": "Lorem ipsum",
+      "description": "Quam. Morbi mollis. Integer lacinia. Praesent blandit elementum sapien."
+    }
+  }
+]
