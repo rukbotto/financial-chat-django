@@ -10,6 +10,8 @@ from celery import shared_task
 from django.contrib.auth.models import User
 from websocket import create_connection
 
+from chat.models import Profile
+
 
 @shared_task
 def query_quote(quote, room_id):
@@ -27,6 +29,15 @@ def query_quote(quote, room_id):
             'financial-bot@example.com',
             password
         )
+
+    bot_profile = None
+    try:
+        bot_profile = Profile.objects.get(user=bot_user)
+    except Profile.DoesNotExist:
+        bot_profile = Profile()
+        bot_profile.user = bot_user
+        bot_profile.bio = 'I am the financial bot!'
+        bot_profile.save()
 
     price = ''
 
