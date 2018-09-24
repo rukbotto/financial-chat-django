@@ -83,6 +83,8 @@ CHANNEL_LAYERS = {
     },
 }
 
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost'
+
 try:
     from financial_chat_django.local_settings import *
 except ImportError:
