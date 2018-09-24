@@ -1,0 +1,276 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.777em;
+  font-size: 100%;
+  color: #454545;
+  background-color: #ece4bf;
+  /* background-color: #f4ecdf; */
+}
+
+a {
+  line-height: 1.777em;
+  color: #355d3a;
+}
+
+a:hover {
+  color: #ebb65a;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  margin: 1.777em 0 1em 0;
+  line-height: 1.777em;
+  color: #454545;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  display: block;
+  font-weight: bold;
+}
+
+h1, .h1 {
+  font-size: 2.369em;
+}
+
+h2, .h2 {
+  font-size: 1.777em;
+}
+
+h3, .h3 {
+  font-size: 1.333em;
+}
+
+h4, .h4 {
+  font-size: 1em;
+}
+
+h5, .h5 {
+  font-size: 1em;
+}
+
+h6, .h6 {
+  font-size: 1em;
+}
+
+p {
+  margin: 1em 0;
+  line-height: 1.777em;
+  color: #454545;
+}
+
+.header {
+  width: 640px;
+  margin: 0 auto;
+  padding: 0.75em 0;
+}
+
+.header:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.header__left {
+  float: left;
+  width: 50%;
+}
+
+.header__right {
+  float: left;
+  width: 50%;
+  text-align: right;
+}
+
+.header__brand {
+  text-decoration: none;
+  color: #355d3a;
+  font-weight: bold;
+  font-size: 1.777em;
+}
+
+.header__profile,
+.header__logout {
+  display: inline-block;
+  font-size: 0.75em;
+}
+
+.header__profile {
+  margin: 1em 0.75em 0 0;
+}
+
+.header__logout {
+  margin: 1em 0 0 0.75em;
+}
+
+.content {
+  width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.content--profile .content__main p {
+  margin: 1em 0 2.369em 0;
+}
+
+.content__main {
+  background-color: #ffffff;
+  box-shadow: 0 0 2px #454545;
+  border-radius: 0.317em;
+  padding: 1px 1em;
+}
+
+.content__heading {
+  color: #355d3a;
+}
+
+.room {
+  margin: 1.777em 0;
+}
+
+.notice {
+  margin: 2.369em 0;
+}
+
+.messages {
+  min-height: 100px;
+  max-height: 480px;
+  margin: 1.777em 0;
+  overflow-y: scroll;
+}
+
+.message {
+  background-color: #ebebeb;
+  border-radius: 0.317em;
+  padding: 1px 0.75em;
+  margin: 1em 0;
+}
+
+.message__metadata {
+  font-size: 0.75em;
+  text-align: right;
+}
+
+.message__metadata p {
+  color: #bababa;
+}
+
+.message__metadata a {
+  color: #bababa;
+}
+
+.message__content {
+  text-align: left;
+}
+
+.message__content p {
+  margin: 0.75em 0;
+}
+
+.form {
+  margin: 1.777em 0;
+}
+
+.form:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.form p:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.form label {
+  display: block;
+  float: left;
+  line-height: 1.777em;
+  padding: 0.317em 0.563em;
+  text-align: right;
+}
+
+.form input {
+  display: block;
+  padding: 0.317em 0.563em;
+  line-height: 1.777em;
+  float: left;
+  border-radius: 0.317em;
+  border: 1px solid #bababa;
+}
+
+.form textarea {
+  display: block;
+  padding: 0.317em 0.563em;
+  line-height: 1.777em;
+  float: left;
+  border-radius: 0.317em;
+  border: 1px solid #bababa;
+}
+
+.form button[type=submit],
+.form input[type=submit] {
+  display: block;
+  padding: 0.317em;
+  line-height: 1.777em;
+  cursor: pointer;
+  width: 100px;
+  background-color: #355d3a;
+  border: 1px solid #355d3a;
+  border-radius: 0.317em;
+  color: #ffffff;
+}
+
+.form button[type=submit]:hover,
+.form input[type=submit]:hover {
+  background-color: #ebb65a;
+  border: 1px solid #ebb65a;
+  color: #355d3a;
+}
+
+.form--message label {
+  display: none;
+}
+
+.form--message textarea {
+  margin: 0 1em 0 0;
+  width: calc(100% - 1em - 70px);
+  float: left;
+}
+
+.form--message input[type=submit] {
+  width: 70px;
+}
+
+.form--login {
+  width: 60%;
+  margin: 1.777em auto;
+}
+
+.form--login label {
+  width: 40%;
+}
+
+.form--login input {
+  width: 60%;
+}
+
+.form--login button[type=submit] {
+  margin: 0 auto;
+}
+
+.footer {
+  width: 640px;
+  margin: 0 auto;
+  padding: 0.75em 0;
+  text-align: center;
+}
+
+.footer p {
+  font-size: 0.75em;
+  color: #355d3a;
+}
