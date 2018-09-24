@@ -74,6 +74,7 @@ Room.prototype.onMessage = function (event) {
 
   var messageContainerDOM = document.querySelector(this.refs.messageContainer);
   messageContainerDOM.appendChild(this.createNewMessageDOM(data));
+  messageContainerDOM.scrollTop = messageContainerDOM.scrollHeight - messageContainerDOM.clientHeight;
 
   var messageListDOM = messageContainerDOM.children;
   if (messageListDOM.length > 50) {
@@ -102,6 +103,8 @@ Room.prototype.onSubmit = function (event) {
 
 Room.prototype.onInit = function (event) {
   var messageContainerDOM = event.target;
+  messageContainerDOM.scrollTop = messageContainerDOM.scrollHeight - messageContainerDOM.clientHeight;
+
   var messageTimeListDOM = messageContainerDOM.querySelectorAll(this.refs.messageTime);
   for (var i = 0; i < messageTimeListDOM.length; i++) {
     var datetime = messageTimeListDOM[i].getAttribute('datetime');
